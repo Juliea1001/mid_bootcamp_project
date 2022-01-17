@@ -1,13 +1,13 @@
 # mid_bootcamp_project
 
 We had to choose between a classification and a regression problem for the mid bootcamp project.
-We chose the regression problem. And had been using the regression house price dataas we have been provided by IronHack. It is stored under regression -> files_for_lab -> regression_data.csv and for the tableau part of the work we converted into .xls format (regression -> files_for_lab -> regression_data.xls).
+My group chose the regression problem. And we had been using the regression house price datas we have been provided by IronHack. It is stored under regression -> files_for_lab -> regression_data.csv and for the tableau part of the work we converted into .xls format (regression -> files_for_lab -> regression_data.xls).
 
 ### The to turn in work (tableau, sql, ipynb) ist stored in the folder regression -> turn_ins
 
 It contains the sql sheet having been worked on as instructed in the sql.md provided by IronHack (these instructions are stored in the folder regression -> instructions) and 
 the tableau worksheet (dashboard 1). Partly worked on it as instructed in the tableau.md (stored in the folder regression -> instructions).
-And after exploring and wrangling the data in pandas notebook having worked again with tableau (-> dashboard 2).
+And after exploring and wrangling the data in pandas notebook ('machine_learning_process.ipnb') having worked again with tableau (-> dashboard 2,3,4).
 
 ### the task given has been:
 
@@ -18,18 +18,30 @@ The questions have been provided later in the document for which you can use tab
 
 **Data**: The data set consists of information on some 22,000 properties.  The dataset consisted of historic data of houses sold between May 2014 to May 2015."
 
-### Results of the work:
+### Results and process of the work:
 
-The highest correlation between price and the given house features has been found with the feature of 'square foot living' of the houses (correlation factor of 0.7).
+The highest correlation between price and the given house features has been found with the feature of 'square foot living' of the houses (correlation factor of 0.7) closely followed by the 'grade' given to the house (correlation factor 0.67). And also the zip code is correlated to the house prices.
 
-The given data has been explored and for one way normalized and for the other way outliers have been removed. Afterwards for both ways there have been 3 data fitting models used and compared to another. The fitting models were:
+The given data has been explored and features having changed from floats to categoricals and also from categoricals into float searching for the best results. 3 data fitting models have been used and compared to another. The fitting models were:
 1. Linear Regression
 2. KNN Neighbor Regressor
 3. MLP Regressor
 
-The best predictions on the trained data part to the other test data part has been reached - measured by the R^2 score of 76% - with the knn model on the normalized data. 
-Measured by the Mean Average Error score the best outcome has been with the linear regression model using the data having removed outliers. 
+The Linear Regression gave the best results for the R^2 , MAE and MSE score.
 
+Afterwards the feature of the best modified data has been normalized and from the target value 'price' the outliers had been removed (1.5*iqr).
 
-## hier noch Bild von pred against trues vom besten R^2 einfügen.
+These are the best results:
+having put 'bedrooms','zipcode','condition','view','date_month' into categoricals
+droping columns 'date' , 'lat' , 'long'
+Using normalized data, having removed outliers from the 'price' values
+Using Linear Regression gives best scores as follows:
+R^2: 0.84 MAE: $61073 MSE: $82200
+
+The house price is quiet solid to predict, but the range for uncertainty for the price is about $ 120000, which is not such a small range. But for higher priced houses, it is not that bad.
+So maybe if a house is predicted given a price less then ($  650000-$ 61000) = $ 589000 it should maybe rather not been taken from the real estate company into their market, if they only want to get houses sold, reaching a price above $ 650000.
+
+I also gave a filter tool an attempt to watch out for high priced houses (> $ 650000) relying on the parameter 'grade' and 'sqft_living'. But there were also many houses lost in the high price segment (loss of 13% of the high priced houses) after applying the filter.  At least the low priced houses could be reduced to a third of the number before.
+
+But since the house prices depend also much on the local zip code, it would be an possibility for the real estate company to focus on the lucrative local zip code areas.
 
